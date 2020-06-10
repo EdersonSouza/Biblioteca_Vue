@@ -11,6 +11,7 @@
             :key="item.text"
             router
             :to="{ name: item.link }"
+            
           >
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
@@ -76,11 +77,11 @@
       dialog: false,
       drawer: null,
       items: [
-        { icon: 'mdi-contacts', text: 'Contacts' ,link :'livros'},
-        { icon: 'mdi-history', text: 'Frequently contacted' },
-        { icon: 'mdi-content-copy', text: 'Duplicates' },
-        { icon: 'mdi-cog', text: 'Settings' },
-        { icon: 'mdi-message', text: 'Send feedback' },
+        { icon: 'mdi-book-open-page-variant', text: 'Livros' ,link :'livros', color:"green"},
+        { icon: 'mdi-account-multiple', text: 'Autores', link: 'autor'},
+        { icon: 'mdi-account-group-outline', text: 'Alunos', link: 'aluno' },
+        { icon: 'mdi-briefcase-edit', text: 'Editoras', link:'editora' },
+        { icon: 'mdi-message', text: 'Emprestimos' },
         { icon: 'mdi-help-circle', text: 'Help' },
         { icon: 'mdi-cellphone-link', text: 'App downloads' },
         { icon: 'mdi-keyboard', text: 'Go to the old version' },

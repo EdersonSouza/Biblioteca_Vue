@@ -19,7 +19,10 @@ Vue.use(VueRouter)
     component: () => import( '../views/About.vue'),
     children: [
       { path: 'livros', name: 'livros', component: () => import('../components/livros/livro') },
-      
+      { path: 'autor', name: 'autor', component: () => import('../components/autor/autor') },
+      { path: 'editora', name: 'editora', component: () => import('../components/editoras/editora') },
+      { path: 'aluno', name: 'aluno', component: () => import('../components/alunos/aluno') },
+      { path: 'emprestimo', name: 'emprestimo', component: () => import('../components/emprestimos/emprestimo') },
     ]
   }
 
