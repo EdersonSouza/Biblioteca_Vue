@@ -4,6 +4,7 @@
       v-model="drawer"
       :clipped="$vuetify.breakpoint.lgAndUp"
       app
+      color= '#E0F7FA'
     >
       <v-list dense>
         <template v-for="item in items">
@@ -29,7 +30,7 @@
     <v-app-bar
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       app
-      color="blue darken-3"
+      color="#009688"
       dark
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -47,10 +48,11 @@
         <v-avatar
           size="32px"
           item
+          
         >
           <v-img
-            src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-            alt="Vuetify"
+            src="../assets/logo_braz.png"
+            alt="Logo Braz"
           ></v-img></v-avatar>
       </v-btn>
     </v-app-bar>
@@ -81,10 +83,8 @@
         { icon: 'mdi-account-multiple', text: 'Autores', link: 'autor'},
         { icon: 'mdi-account-group-outline', text: 'Alunos', link: 'aluno' },
         { icon: 'mdi-briefcase-edit', text: 'Editoras', link:'editora' },
-        { icon: 'mdi-message', text: 'Emprestimos' },
-        { icon: 'mdi-help-circle', text: 'Help' },
-        { icon: 'mdi-cellphone-link', text: 'App downloads' },
-        { icon: 'mdi-keyboard', text: 'Go to the old version' },
+        { icon: 'mdi-cart-arrow-right', text: 'Emprestimos' , link:'emprestimo'},
+        
       ],
     }),
   }

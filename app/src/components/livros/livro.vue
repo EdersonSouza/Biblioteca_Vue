@@ -2,7 +2,7 @@
     <div>
         <v-btn
       bottom
-      color="primary"
+      color="#009688"
       dark
       fab
       fixed
@@ -29,24 +29,14 @@
                 align="center"
                 class="mr-0"
               >
-                <v-avatar
-                  size="40px"
-                  class="mx-3"
-                >
-                  <img
-                    src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
-                    alt=""
-                  >
-                </v-avatar>
                 <v-text-field
-                  placeholder="Name"
+                  placeholder="Nome"
                 ></v-text-field>
               </v-row>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12">
               <v-text-field
-                prepend-icon="mdi-account-card-details-outline"
-                placeholder="Company"
+                placeholder="Nome do autor"
               ></v-text-field>
             </v-col>
             <v-col cols="6">
