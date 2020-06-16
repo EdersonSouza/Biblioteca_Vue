@@ -30,39 +30,18 @@
                 class="mr-0"
               >
                 <v-text-field
-                  placeholder="Nome"
+                  v-model = livro.titulo
+                  placeholder="Titulo"
                 ></v-text-field>
               </v-row>
             </v-col>
             <v-col cols="12">
               <v-text-field
-                placeholder="Nome do autor"
+                v-model = livro.descrição
+                placeholder="Descrição"
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
-              <v-text-field
-                placeholder="Job title"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                prepend-icon="mdi-mail"
-                placeholder="Email"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                type="tel"
-                prepend-icon="mdi-phone"
-                placeholder="(000) 000 - 0000"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                prepend-icon="mdi-text"
-                placeholder="Notes"
-              ></v-text-field>
-            </v-col>
+          
           </v-row>
         </v-container>
         <v-card-actions>
@@ -78,7 +57,7 @@
           >Cancel</v-btn>
           <v-btn
             text
-            @click="dialog = false"
+            @click="store()"
           >Save</v-btn>
         </v-card-actions>
       </v-card>
@@ -86,10 +65,29 @@
     </div> 
 </template>
 <script>
+import Livro from '../../services/livros'
 export default {
     data: () => ({
       dialog: false,
+      livro:{
+        titulo:'',
+        descrição:''
+
+      }
       
     }),
+    methods:{
+      store (){
+        Livro.create(this.livro).then(resposta => {
+
+             console.log('sucesso '+resposta.data)
+            })
+            .catch(function (error) {
+    // handle error
+            console.log(error);
+            })
+            this.dialog = false
+      }
+    }
 }
 </script>
