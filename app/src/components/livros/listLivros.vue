@@ -22,7 +22,7 @@
             solo-inverted
             hide-details
             prepend-inner-icon="mdi-magnify"
-            label="Search"
+            label="Procurar"
           ></v-text-field>
           <template v-if="$vuetify.breakpoint.mdAndUp">
             <v-spacer></v-spacer>
@@ -33,7 +33,7 @@
               hide-details
               :items="keys"
               prepend-inner-icon="mdi-magnify"
-              label="Sort by"
+              label="Ordenar por"
             ></v-select>
             <v-spacer></v-spacer>
             <v-btn-toggle
@@ -65,14 +65,14 @@
         <v-row>
           <v-col
             v-for="item in props.items"
-            :key="item.name"
+            :key="item.titulo"
             cols="12"
-            sm="6"
-            md="4"
-            lg="3"
+            sm="2"
+            md="2"
+            lg="10"
           >
-            <v-card>
-              <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
+            <v-card >
+              <v-card-title class="subheading font-weight-bold">{{ item.titulo }}</v-card-title>
 
               <v-divider></v-divider>
 
@@ -160,13 +160,14 @@ import Livros from '../../services/livros'
         sortBy: 'titulo',
         keys: [
           'Titulo',
-          'Autor',
-          'Editora',
+          'Descrição',
+          'Total',
           'Categoria',
         ],
         items: [
-          
+         
         ],
+        categoria:[]
       }
     },
     computed: {
@@ -188,14 +189,23 @@ import Livros from '../../services/livros'
         Livros.listar()
             .then(resposta => {
               this.items = resposta.data
-              console.log(this.items);
+              this.items.map((el,i)=>{
+                el.categoria.map((n,e)=>{
+                  this.items[i].categoria[e]=n.nome
+                 
+                })
+                
+                 
+                  
+              })
+             
             })
             .catch(function (error) {
     // handle error
             console.log(error);
             })
           
-        
+        console.log(this.items)
       },
       nextPage () {
         if (this.page + 1 <= this.numberOfPages) this.page += 1
