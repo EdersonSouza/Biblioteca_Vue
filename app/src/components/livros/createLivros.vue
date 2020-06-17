@@ -80,7 +80,7 @@ export default {
       store (){
         Livro.create(this.livro).then(resposta => {
 
-             console.log('sucesso '+resposta.data)
+             this.$store.commit('ADD_LIVROS',resposta.data)
             })
             .catch(function (error) {
     // handle error

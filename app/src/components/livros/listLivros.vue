@@ -1,10 +1,9 @@
 <template>
   <v-container fluid>
     <v-data-iterator
-      :items="items"
+      :items="getLivros"
       :page="page"
       :search="search"
-      :sort-by="sortBy.toLowerCase()"
       :sort-desc="sortDesc"
       hide-default-footer
     >
@@ -23,19 +22,6 @@
             prepend-inner-icon="mdi-magnify"
             label="Procurar"
           ></v-text-field>
-          <template v-if="$vuetify.breakpoint.mdAndUp">
-            <v-spacer></v-spacer>
-            <v-select
-              v-model="sortBy"
-              flat
-              solo-inverted
-              hide-details
-              :items="keys"
-              prepend-inner-icon="mdi-magnify"
-              label="Ordenar por"
-            ></v-select>
-            <v-spacer></v-spacer>
-          </template>
         </v-toolbar>
       </template>
 
@@ -43,7 +29,7 @@
             <v-card >
               <v-data-table
               :headers="keys"
-              :items="this.items"
+              :items="getLivros"
               :search="search"
               ></v-data-table>
             </v-card>
@@ -53,7 +39,7 @@
   </v-container>
 </template>
 <script>
-import Livros from '../../services/livros'
+//import Livros from '../../services/livros'
   export default {
     data () {
       return {
@@ -68,29 +54,25 @@ import Livros from '../../services/livros'
            { text: 'Categorias', value: 'categoria' },
           
         ],
-        items: [
-         
-        ],
-        categoria:[]
       }
     },
     computed: {
-      numberOfPages () {
-        return Math.ceil(this.items.length / this.itemsPerPage)
-      },
-      filteredKeys () {
-        return this.keys.filter(key => key !== `Titulo`)
+      
+      getLivros () {
+        return this.$store.state.livros
       },
     },
 
-    created () {
-        this.list()
+    mounted () {
+        this.$store.dispatch('listarLivros')
 
     },
+    
     methods: {
       list () {
         
-        Livros.listar()
+        
+        /*Livros.listar()
             .then(resposta => {
               this.items = resposta.data
               this.items.map((el,i)=>{
@@ -102,23 +84,15 @@ import Livros from '../../services/livros'
                  
                   
               })
-             
+             this.$store.commit('GET_LIVROS',this.items)
             })
             .catch(function (error) {
     // handle error
             console.log(error);
             })
-          
+          */
       },
-      nextPage () {
-        if (this.page + 1 <= this.numberOfPages) this.page += 1
-      },
-      formerPage () {
-        if (this.page - 1 >= 1) this.page -= 1
-      },
-      updateItemsPerPage (number) {
-        this.itemsPerPage = number
-      },
+      
     },
   }
 </script>
