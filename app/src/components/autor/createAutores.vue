@@ -59,7 +59,7 @@
     </div> 
 </template>
 <script>
-import Autor from '../../services/autor'
+
 export default {
     data: () => ({
       dialog: false,
@@ -71,15 +71,7 @@ export default {
     }),
     methods:{
       store (){
-        Autor.create(this.Autor).then(resposta => {
-
-             this.$store.commit('ADD_AUTORES',resposta.data)
-             console.log(resposta.data)
-            })
-            .catch(function (error) {
-    // handle error
-            console.log(error);
-            })
+        this.$store.dispatch('casdastrarAutor',this.Autor)
             this.dialog = false
       }
     }

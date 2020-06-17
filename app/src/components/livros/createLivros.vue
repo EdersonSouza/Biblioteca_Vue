@@ -65,7 +65,7 @@
     </div> 
 </template>
 <script>
-import Livro from '../../services/livros'
+
 export default {
     data: () => ({
       dialog: false,
@@ -78,14 +78,8 @@ export default {
     }),
     methods:{
       store (){
-        Livro.create(this.livro).then(resposta => {
-
-             this.$store.commit('ADD_LIVROS',resposta.data)
-            })
-            .catch(function (error) {
-    // handle error
-            console.log(error);
-            })
+        this.$store.dispatch('cadastrarLivro',this.livro)
+       
             this.dialog = false
       }
     }

@@ -67,29 +67,8 @@
     },
     
     methods: {
-      list () {
-        
-        
-        /*Livros.listar()
-            .then(resposta => {
-              this.items = resposta.data
-              this.items.map((el,i)=>{
-                el.categoria.map((n,e)=>{
-                  this.items[i].categoria[e]=n.nome
-                 
-                })
-                
-                 
-                  
-              })
-             this.$store.commit('GET_LIVROS',this.items)
-            })
-            .catch(function (error) {
-    // handle error
-            console.log(error);
-            })
-          */
-      },
+      
+      
       
     },
   }

@@ -53,6 +53,19 @@ const store = new Vuex.Store({
             console.log(error);
             })
           },
+          cadastrarLivro({commit},livro){
+            Livros.create(livro)
+            .then(resposta => {
+                commit('ADD_LIVROS',resposta.data)
+            })
+            .catch( error => {
+                console.log(error)
+            })
+          },
+
+
+
+
           //Autores
           listarAutores({commit}) {
            
@@ -61,11 +74,20 @@ const store = new Vuex.Store({
              const items = resposta.data
              commit('GET_AUTORES',items)
             })
-            .catch(function (error) {
+            .catch(error => {
  
             console.log(error);
             })
           },
+
+          casdastrarAutor({commit},autor){
+              Autores.create(autor)
+              .then(resposta => {
+                  commit('ADD_AUTORES',resposta.data)
+              }).catch(error => {
+                  console.log(error);
+              })
+          }
 
 
     }
