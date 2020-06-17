@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     state:{
         livros: [],
         autores:[],
+        alunos:[],
     },
     mutations:{
         //Livros
@@ -17,6 +18,16 @@ const store = new Vuex.Store({
         },
         ADD_LIVROS (state,livros){
             state.livros.push(livros)
+        },
+
+
+
+        //Alunos
+        GET_ALUNOS(state,alunos){
+            state.alunos = alunos
+        },
+        ADD_ALUNOS(state,alunos){
+            state.alunos.push(alunos)
         },
 
 
@@ -62,6 +73,9 @@ const store = new Vuex.Store({
                 console.log(error)
             })
           },
+
+
+          //Alunos
 
 
 

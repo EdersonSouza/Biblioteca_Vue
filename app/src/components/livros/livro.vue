@@ -13,11 +13,7 @@ export default {
   components: {
     create,
     list
-},
-    data: () => ({
-     
-      
-    }),
+}
     
 }
 </script>
