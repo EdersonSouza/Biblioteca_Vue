@@ -82,8 +82,10 @@
         { icon: 'mdi-book-open-page-variant', text: 'Livros' ,link :'livros', color:"green"},
         { icon: 'mdi-account-multiple', text: 'Autores', link: 'autor'},
         { icon: 'mdi-account-group-outline', text: 'Alunos', link: 'aluno' },
+        { icon: 'mdi-code-array', text:'Categorias',link:'categoria'},
         { icon: 'mdi-briefcase-edit', text: 'Editoras', link:'editora' },
         { icon: 'mdi-cart-arrow-right', text: 'Emprestimos' , link:'emprestimo'},
+        
         
       ],
     }),

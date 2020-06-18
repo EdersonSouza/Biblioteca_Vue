@@ -23,6 +23,7 @@ Vue.use(VueRouter)
       { path: 'editora', name: 'editora', component: () => import('../components/editoras/editora') },
       { path: 'aluno', name: 'aluno', component: () => import('../components/alunos/aluno') },
       { path: 'emprestimo', name: 'emprestimo', component: () => import('../components/emprestimos/emprestimo') },
+      { path: 'categoria', name:'categoria', component:() => import('../components/categorias/categoria')}
     ]
   }
 
