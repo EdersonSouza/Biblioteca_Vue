@@ -37,10 +37,52 @@
             </v-col>
             <v-col cols="12">
               <v-text-field
-                v-model = livro.descrição
+                v-model = livro.descricao
                 placeholder="Descrição"
               ></v-text-field>
             </v-col>
+            <v-col cols="12">
+            <v-autocomplete
+              v-model="autores"
+              :items="getAutores"
+              filled
+              chips
+              color="blue-grey lighten-2"
+              label="Selcionar Autor"
+              item-text="nome"
+              item-value="nome"
+              multiple
+            >
+              <template v-slot:selection="data">
+                <v-chip
+                  v-bind="data.attrs"
+                  :input-value="data.selected"
+                  close
+                  @click="data.select"
+                  @click:close="remove(data.item)"
+                >
+                  {{ data.item.nome }}
+                </v-chip>
+              </template>
+              <template v-slot:item="data">
+                <template v-if="typeof data.item !== 'object'">
+                  <v-list-item-content v-text="data.item"></v-list-item-content>
+                </template>
+                <template v-else>
+                  <v-list-item-content>
+                    <v-list-item-title v-html="data.item.nome"></v-list-item-title>
+                  </v-list-item-content>
+                </template>
+              </template>
+            </v-autocomplete>
+            <v-card-actions>
+              <v-btn
+                text
+                color='#009688'
+                @click="save()"
+              >Add</v-btn>
+            </v-card-actions>
+          </v-col>
           
           </v-row>
         </v-container>
@@ -66,19 +108,39 @@
 export default {
     data: () => ({
       dialog: false,
+      autores:[],
       livro:{
         titulo:'',
-        descrição:''
+        descricao:''
 
       }
       
     }),
+    computed: {
+      
+      getAutores () {
+        return this.$store.getters.autores
+      },
+    },
+
+    mounted () {
+        this.$store.dispatch('listarAutores')
+
+    },
     methods:{
+       remove (item) {
+        const index = this.autores.indexOf(item.nome)
+        if (index >= 0) this.autores.splice(index, 1)
+      },
+      save(){
+        console.log(this.autores)
+      },
       store (){
         this.$store.dispatch('cadastrarLivro',this.livro)
        
             this.dialog = false
       }
-    }
+    },
+   
 }
 </script>

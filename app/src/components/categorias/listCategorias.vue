@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-data-iterator
-      :items="getLivros"
+      :items="getCategorias"
       :page="page"
       :search="search"
       :sort-desc="sortDesc"
@@ -29,7 +29,7 @@
             <v-card >
               <v-data-table
               :headers="keys"
-              :items="getLivros"
+              :items="getCategorias"
               :search="search"
               ></v-data-table>
             </v-card>
@@ -47,31 +47,31 @@
         filter: {},
         sortDesc: false,
         page: 1,
-        sortBy: 'titulo',
+        sortBy: 'nome',
         keys: [
-           { text: 'Titulo', value: 'titulo' },
+           { text: 'Nome', value: 'nome' },
            { text: 'Descrição', value: 'descricao' },
-           { text: 'Categorias', value: 'categoria' },
+           
           
         ],
       }
     },
     computed: {
       
-      getLivros () {
-        return this.$store.getters.livros
+      getCategorias () {
+        return this.$store.getters.categorias
       },
     },
 
     mounted () {
-        this.$store.dispatch('listarLivros')
+        this.$store.dispatch('listarCategorias')
 
     },
     
     methods: {
       pegar(props){
         console.log(props._id)
-        console.log(props.titulo)
+        console.log(props.nome)
         
       }
       
