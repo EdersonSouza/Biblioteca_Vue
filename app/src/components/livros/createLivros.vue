@@ -48,15 +48,12 @@
           <v-btn
             text
             color="primary"
-          >More</v-btn>
+            @click="dialog = false"
+          >Cancel</v-btn>
           <v-spacer></v-spacer>
           <v-btn
             text
-            color="primary"
-            @click="dialog = false"
-          >Cancel</v-btn>
-          <v-btn
-            text
+            color='#009688'
             @click="store()"
           >Save</v-btn>
         </v-card-actions>

@@ -13,7 +13,7 @@
     </v-btn>
     <v-dialog
       v-model="dialog"
-      width="800px"
+      width="400px"
     >
       <v-card>
         <v-card-title class="teal " >
@@ -42,17 +42,14 @@
           <v-btn
             text
             color="primary"
-          >More</v-btn>
+            @click="dialog = false"
+          >Cancelar</v-btn>
           <v-spacer></v-spacer>
           <v-btn
             text
-            color="primary"
-            @click="dialog = false"
-          >Cancel</v-btn>
-          <v-btn
-            text
+            color='#009688'
             @click="store()"
-          >Save</v-btn>
+          >Savar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
