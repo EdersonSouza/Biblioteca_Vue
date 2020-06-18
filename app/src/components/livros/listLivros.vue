@@ -25,12 +25,14 @@
         </v-toolbar>
       </template>
 
-      <template >
+      <template v-slot:item={item} >
             <v-card >
               <v-data-table
               :headers="keys"
               :items="getLivros"
               :search="search"
+              locale="pt-br"
+              @click.native="pegar(item)"
               ></v-data-table>
             </v-card>
           
@@ -59,7 +61,7 @@
     computed: {
       
       getLivros () {
-        return this.$store.state.livros
+        return this.$store.getters.livros
       },
     },
 
@@ -69,7 +71,11 @@
     },
     
     methods: {
-      
+      pegar(props){
+        console.log(props._id)
+        console.log(props.titulo)
+        
+      }
       
     },
   }

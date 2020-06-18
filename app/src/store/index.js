@@ -4,6 +4,7 @@ import Livros from '../services/livros'
 import Autores from '../services/autor'
 import Alunos from '../services/aluno'
 import Editoras from '../services/editora'
+import Categorias from '../services/categoria'
 
 Vue.use(Vuex)
 
@@ -12,8 +13,28 @@ const store = new Vuex.Store({
         livros: [],
         autores:[],
         alunos:[],
-        editoras:[]
+        editoras:[],
+        categorias:[]
     },
+    getters: {
+        livros(state) {
+          return state.livros
+        },
+        editoras(state) {
+          return state.editoras;
+        },
+        autores(state) {
+          return state.autores;
+        },
+        alunos(state) {
+          return state.alunos;
+        },
+        categorias(state) {
+          return state.categorias;
+        },
+    
+      },
+    
     mutations:{
         //Livros
         GET_LIVROS(state,livros){
@@ -51,6 +72,15 @@ const store = new Vuex.Store({
         ADD_EDITORAS(state,editora){
             state.editoras.push(editora)
         },
+
+        //Categorias
+        GET_CATEGORIAS(state,categorias){
+            state.categorias=categorias
+        },
+        ADD_CATEGORIAS(state,categoria){
+            state.categorias.push(categoria)
+        },
+
     },
     actions:{
         //Livros
@@ -151,6 +181,27 @@ const store = new Vuex.Store({
                   commit('GET_EDITORAS',resposta.data)
               }).catch(error => {
                   console.log(error);
+              })
+          },
+
+
+          //Categorias
+
+
+          listarCategorias({commit}){
+              Categorias.listar()
+              .then(resposta => {
+                  commit('GET_CATEGORIAS',resposta.data)
+              }).catch(error => {
+                  console.log(error)
+              })
+          },
+          cadastrarCategoria({commit},categoria){
+              Categorias.create(categoria)
+              .then(resposta => {
+                  commit('ADD_CATEGORIAS',resposta.data)
+              }).catch(error => {
+                  console.log(error)
               })
           }
 

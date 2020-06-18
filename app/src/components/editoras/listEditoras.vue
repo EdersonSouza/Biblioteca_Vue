@@ -57,7 +57,7 @@
     computed: {
       
       getEditoras () {
-        return this.$store.state.editoras
+        return this.$store.getters.editoras
       },
     },
 

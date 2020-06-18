@@ -57,7 +57,7 @@
     computed: {
       
       getAutores () {
-        return this.$store.state.autores
+        return this.$store.getters.autores
       },
     },
 

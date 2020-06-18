@@ -58,7 +58,7 @@
     computed: {
       
       getAlunos () {
-        return this.$store.state.alunos
+        return this.$store.getters.alunos
       },
     },
 
