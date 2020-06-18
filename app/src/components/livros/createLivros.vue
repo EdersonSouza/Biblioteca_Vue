@@ -30,27 +30,27 @@
                 class="mr-0"
               >
                 <v-text-field
-                  v-model = livro.titulo
+                  v-model = nlivro.titulo
                   placeholder="Titulo"
                 ></v-text-field>
               </v-row>
             </v-col>
             <v-col cols="12">
               <v-text-field
-                v-model = livro.descricao
+                v-model = nlivro.descricao
                 placeholder="Descrição"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
             <v-autocomplete
-              v-model="autores"
+              v-model="nlivro._autor"
               :items="getAutores"
               filled
               chips
               color="blue-grey lighten-2"
               label="Selcionar Autor"
               item-text="nome"
-              item-value="nome"
+              item-value="_id"
               multiple
             >
               <template v-slot:selection="data">
@@ -61,7 +61,7 @@
                   @click="data.select"
                   @click:close="remove(data.item)"
                 >
-                  {{ data.item.nome }}
+                  {{ data.item.nome}}
                 </v-chip>
               </template>
               <template v-slot:item="data">
@@ -75,13 +75,6 @@
                 </template>
               </template>
             </v-autocomplete>
-            <v-card-actions>
-              <v-btn
-                text
-                color='#009688'
-                @click="save()"
-              >Add</v-btn>
-            </v-card-actions>
           </v-col>
           
           </v-row>
@@ -104,14 +97,15 @@
     </div> 
 </template>
 <script>
-
+import ClassLivros from '../../models/livros/livros'
 export default {
     data: () => ({
       dialog: false,
       autores:[],
+      nlivro: new ClassLivros(),
       livro:{
         titulo:'',
-        descricao:''
+        descricao:'',
 
       }
       
@@ -129,16 +123,18 @@ export default {
     },
     methods:{
        remove (item) {
-        const index = this.autores.indexOf(item.nome)
-        if (index >= 0) this.autores.splice(index, 1)
-      },
-      save(){
-        console.log(this.autores)
+        const index = this.nlivro._autor.indexOf(item._id)
+        if (index >= 0) this.nlivro._autor.splice(index, 1)
       },
       store (){
-        this.$store.dispatch('cadastrarLivro',this.livro)
-       
-            this.dialog = false
+        /*const classlivro = new ClassLivros()
+        classlivro.titulo = this.livro.titulo
+        classlivro.descricao = this.livro.descricao
+        classlivro._autor = this.autores*/
+        this.$store.dispatch('cadastrarLivro',this.nlivro)
+        this.nlivro = new ClassLivros()
+        this.dialog = false
+        
       }
     },
    

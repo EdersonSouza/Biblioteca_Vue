@@ -6,6 +6,7 @@ import Alunos from '../services/aluno'
 import Editoras from '../services/editora'
 import Categorias from '../services/categoria'
 
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -107,6 +108,7 @@ const store = new Vuex.Store({
             })
           },
           cadastrarLivro({commit},livro){
+            console.log(livro._autor)
             Livros.create(livro)
             .then(resposta => {
                 commit('ADD_LIVROS',resposta.data)
