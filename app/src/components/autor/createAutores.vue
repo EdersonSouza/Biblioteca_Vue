@@ -71,7 +71,7 @@ export default {
     }),
     methods:{
       store (){
-        this.$store.dispatch('casdastrarAutor',this.Autor)
+        this.$store.dispatch('cadastrarAutor',this.Autor)
             this.dialog = false
       }
     }

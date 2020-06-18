@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-data-iterator
-      :items="getAlunos"
+      :items="getEditoras"
       :page="page"
       :search="search"
       :sort-desc="sortDesc"
@@ -29,7 +29,7 @@
             <v-card >
               <v-data-table
               :headers="keys"
-              :items="getAlunos"
+              :items="getEditoras"
               :search="search"
               ></v-data-table>
             </v-card>
@@ -49,7 +49,6 @@
         sortBy: 'nome',
         keys: [
            { text: 'Nome', value: 'nome' },
-           { text: 'SGDE', value: 'codigoSgde' },
            
           
         ],
@@ -57,13 +56,13 @@
     },
     computed: {
       
-      getAlunos () {
-        return this.$store.state.alunos
+      getEditoras () {
+        return this.$store.state.editoras
       },
     },
 
     mounted () {
-        this.$store.dispatch('listarAlunos')
+        this.$store.dispatch('listarEditoras')
 
     },
     

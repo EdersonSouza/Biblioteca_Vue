@@ -17,7 +17,7 @@
     >
       <v-card>
         <v-card-title class="teal " >
-          Cadastrar Aluno
+          Cadastrar Editora
         </v-card-title>
         <v-container>
           <v-row class="mx-2">
@@ -30,16 +30,10 @@
                 class="mr-0"
               >
                 <v-text-field
-                  v-model = Aluno.nome
+                  v-model = Editora.nome
                   placeholder="Nome"
                 ></v-text-field>
               </v-row>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-model = Aluno.codigoSgde
-                placeholder="Código SGDE"
-              ></v-text-field>
             </v-col>
           
           </v-row>
@@ -69,16 +63,15 @@
 export default {
     data: () => ({
       dialog: false,
-      Aluno:{
-        nome:'',
-        codigoSgde:''
+      Editora:{
+        nome:''
 
       }
       
     }),
     methods:{
       store (){
-        this.$store.dispatch('cadastrarAluno',this.Aluno)
+        this.$store.dispatch('cadastrarEditora',this.Editora)
             this.dialog = false
       }
     }

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Livros from '../services/livros'
 import Autores from '../services/autor'
+import Alunos from '../services/aluno'
+import Editoras from '../services/editora'
 
 Vue.use(Vuex)
 
@@ -10,14 +12,15 @@ const store = new Vuex.Store({
         livros: [],
         autores:[],
         alunos:[],
+        editoras:[]
     },
     mutations:{
         //Livros
         GET_LIVROS(state,livros){
             state.livros=livros
         },
-        ADD_LIVROS (state,livros){
-            state.livros.push(livros)
+        ADD_LIVROS (state,livro){
+            state.livros.push(livro)
         },
 
 
@@ -26,8 +29,8 @@ const store = new Vuex.Store({
         GET_ALUNOS(state,alunos){
             state.alunos = alunos
         },
-        ADD_ALUNOS(state,alunos){
-            state.alunos.push(alunos)
+        ADD_ALUNOS(state,aluno){
+            state.alunos.push(aluno)
         },
 
 
@@ -36,8 +39,17 @@ const store = new Vuex.Store({
         GET_AUTORES(state,autores){
             state.autores=autores
         },
-        ADD_AUTORES(state,autores){
-            state.autores.push(autores)
+        ADD_AUTORES(state,autor){
+            state.autores.push(autor)
+        },
+
+        //Editoras
+
+        GET_EDITORAS(state,editoras){
+            state.editoras=editoras
+        },
+        ADD_EDITORAS(state,editora){
+            state.editoras.push(editora)
         },
     },
     actions:{
@@ -49,7 +61,7 @@ const store = new Vuex.Store({
                 const items = resposta.data
                 items.map((el,i)=>{
                 el.categoria.map((n,e)=>{
-                  items[i].categoria[e]=n.nome
+                  items[i].categoria[e]="    "+n.nome 
                  
                 })
                 
@@ -77,7 +89,27 @@ const store = new Vuex.Store({
 
           //Alunos
 
-
+          cadastrarAluno({commit},aluno){
+            Alunos.create(aluno)
+            .then(resposta => {
+                commit('ADD_ALUNOS',resposta.data)
+            })
+            .catch( error => {
+                console.log(error)
+            })
+          },
+          listarAlunos({commit}) {
+           
+            Alunos.listar()
+            .then(resposta => {
+             const items = resposta.data
+             commit('GET_ALUNOS',items)
+            })
+            .catch(error => {
+ 
+            console.log(error);
+            })
+          },
 
 
           //Autores
@@ -94,10 +126,29 @@ const store = new Vuex.Store({
             })
           },
 
-          casdastrarAutor({commit},autor){
+          cadastrarAutor({commit},autor){
               Autores.create(autor)
               .then(resposta => {
                   commit('ADD_AUTORES',resposta.data)
+              }).catch(error => {
+                  console.log(error);
+              })
+          },
+
+          //Editoras
+
+          cadastrarEditora({commit},editora){
+              Editoras.create(editora)
+              .then(resposta => {
+                  commit('ADD_EDITORAS', resposta.data)
+              }).catch(error => {
+                  console.log(error);
+              })
+          },
+          listarEditoras({commit}){
+              Editoras.listar()
+              .then(resposta => {
+                  commit('GET_EDITORAS',resposta.data)
               }).catch(error => {
                   console.log(error);
               })
