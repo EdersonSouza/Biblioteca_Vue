@@ -7,7 +7,7 @@
       fab
       fixed
       right
-      @click="dialog = !dialog"
+      @click="add ()"
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
@@ -23,7 +23,7 @@
           <v-row class="mx-2">
             <v-col
               class="align-center justify-space-between"
-              cols="12"
+              cols="8"
             >
               <v-row
                 align="center"
@@ -34,6 +34,14 @@
                   placeholder="Titulo"
                 ></v-text-field>
               </v-row>
+            </v-col>
+            <v-col cols="4">
+              <v-text-field
+                v-model = nlivro.total
+                label="Quantidade"
+                type="Number"
+                @input="nlivro.total = parseInt($event, 10)"
+              ></v-text-field>
             </v-col>
             <v-col cols="12">
               <v-text-field
@@ -175,11 +183,17 @@ export default {
     },
 
     mounted () {
+        this.nlivro.total = 0
         this.$store.dispatch('listarAutores')
         this.$store.dispatch('listarCategorias')
         this.$store.dispatch('listarEditoras')
     },
     methods:{
+       add (){
+          this.dialog = true
+          this.nlivro = new ClassLivros()
+          this.nlivro.total = 0
+       },
        removeAutor (item) {
         const index = this.nlivro._autor.indexOf(item._id)
         if (index >= 0) this.nlivro._autor.splice(index, 1)

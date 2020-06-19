@@ -35,7 +35,7 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title
-        style="width: 300px"
+        style="width: 800px"
         class="ml-0 pl-4"
       >
         <span class="hidden-sm-and-down">Biblioteca Braz </span>
@@ -79,7 +79,7 @@
       dialog: false,
       drawer: null,
       items: [
-        { icon: 'mdi-book-open-page-variant', text: 'Livros' ,link :'livros', color:"green"},
+        { icon: 'mdi-book-open-page-variant', text: 'Livros' ,link :'livros'},
         { icon: 'mdi-account-multiple', text: 'Autores', link: 'autor'},
         { icon: 'mdi-account-group-outline', text: 'Alunos', link: 'aluno' },
         { icon: 'mdi-code-array', text:'Categorias',link:'categoria'},
