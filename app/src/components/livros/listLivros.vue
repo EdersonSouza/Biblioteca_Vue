@@ -5,7 +5,7 @@
       :search="search"
       :sort-desc="sortDesc"
       hide-default-footer
-      
+
     >
       <template v-slot:header>
         <v-toolbar
@@ -35,21 +35,19 @@
               :items-per-page="itemsPerPage"
               class="elevation-1"
               @page-count="pageCount = $event"
-               hide-default-footer
               ></v-data-table>
+               <v-text-field
+                  :value="itemsPerPage"
+                  label="Items por pagina"
+                  type="number"
+                  min="-1"
+                  max="15"
+                  @input="itemsPerPage = parseInt($event, 10)"
+                ></v-text-field>
+                <v-pagination v-model="page" :length="pageCount"></v-pagination>
             </v-card>
         
-           <div class="text-center pt-2" >
-          <v-text-field
-            :value="itemsPerPage"
-            label="Items por pagina"
-            type="number"
-            min="-1"
-            max="15"
-            @input="itemsPerPage = parseInt($event, 10)"
-          ></v-text-field>
-          <v-pagination v-model="page" :length="pageCount"></v-pagination>
-        </div>
+        
       </template>
     </v-data-iterator>
   </v-container>
