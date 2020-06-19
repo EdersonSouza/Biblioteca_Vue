@@ -59,7 +59,42 @@
                   :input-value="data.selected"
                   close
                   @click="data.select"
-                  @click:close="remove(data.item)"
+                  @click:close="removeAutor(data.item)"
+                >
+                  {{ data.item.nome}}
+                </v-chip>
+              </template>
+              <template v-slot:item="data">
+                <template v-if="typeof data.item !== 'object'">
+                  <v-list-item-content v-text="data.item"></v-list-item-content>
+                </template>
+                <template v-else>
+                  <v-list-item-content>
+                    <v-list-item-title v-html="data.item.nome"></v-list-item-title>
+                  </v-list-item-content>
+                </template>
+              </template>
+            </v-autocomplete>
+          </v-col>
+          <v-col cols="12">
+            <v-autocomplete
+              v-model="nlivro.categoria"
+              :items="getCategorias"
+              filled
+              chips
+              color="blue-grey lighten-2"
+              label="Selcionar Categoria"
+              item-text="nome"
+              item-value="_id"
+              multiple
+            >
+              <template v-slot:selection="data">
+                <v-chip
+                  v-bind="data.attrs"
+                  :input-value="data.selected"
+                  close
+                  @click="data.select"
+                  @click:close="removeCategoria(data.item)"
                 >
                   {{ data.item.nome}}
                 </v-chip>
@@ -115,16 +150,23 @@ export default {
       getAutores () {
         return this.$store.getters.autores
       },
+      getCategorias () {
+        return this.$store.getters.categorias
+      },
     },
 
     mounted () {
         this.$store.dispatch('listarAutores')
-
+        this.$store.dispatch('listarCategorias')
     },
     methods:{
-       remove (item) {
+       removeAutor (item) {
         const index = this.nlivro._autor.indexOf(item._id)
         if (index >= 0) this.nlivro._autor.splice(index, 1)
+      },
+      removeCategoria (item) {
+        const index = this.nlivro.categoria.indexOf(item._id)
+        if (index >= 0) this.nlivro.categoria.splice(index, 1)
       },
       store (){
         /*const classlivro = new ClassLivros()

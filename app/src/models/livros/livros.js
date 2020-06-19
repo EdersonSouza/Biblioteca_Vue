@@ -1,10 +1,11 @@
 
 
 export default class Livros {
-    constructor(titulo = '', descricao ='', _autor=[]){
+    constructor(titulo = '', descricao ='', _autor=[], categoria=[]){
         titulo,
         descricao,
-        _autor
+        _autor,
+        categoria
     }
   
 }
