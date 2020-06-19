@@ -41,7 +41,7 @@
                 placeholder="Descrição"
               ></v-text-field>
             </v-col>
-            <v-col cols="12">
+            <v-col cols="6">
             <v-autocomplete
               v-model="nlivro._autor"
               :items="getAutores"
@@ -68,7 +68,7 @@
                 <template v-if="typeof data.item !== 'object'">
                   <v-list-item-content v-text="data.item"></v-list-item-content>
                 </template>
-                <template v-else>
+                <template v-else class="align-center justify-space-between">
                   <v-list-item-content>
                     <v-list-item-title v-html="data.item.nome"></v-list-item-title>
                   </v-list-item-content>
@@ -76,7 +76,7 @@
               </template>
             </v-autocomplete>
           </v-col>
-          <v-col cols="12">
+          <v-col cols="6">
             <v-autocomplete
               v-model="nlivro.categoria"
               :items="getCategorias"
@@ -110,6 +110,21 @@
                 </template>
               </template>
             </v-autocomplete>
+          </v-col>
+          <v-col cols="6">
+            <template>
+              <v-row align="center">
+                  <v-select
+                    v-model= nlivro._Editora
+                    :items="getEditoras"
+                    :menu-props="{ top: true, offsetY: true }"
+                    label="Editora"
+                    item-text = 'nome'
+                    item-value="_id"
+                  > </v-select>
+                
+              </v-row>
+            </template>
           </v-col>
           
           </v-row>
@@ -153,11 +168,15 @@ export default {
       getCategorias () {
         return this.$store.getters.categorias
       },
+      getEditoras () {
+        return this.$store.getters.editoras
+      },
     },
 
     mounted () {
         this.$store.dispatch('listarAutores')
         this.$store.dispatch('listarCategorias')
+        this.$store.dispatch('listarEditoras')
     },
     methods:{
        removeAutor (item) {
@@ -169,10 +188,6 @@ export default {
         if (index >= 0) this.nlivro.categoria.splice(index, 1)
       },
       store (){
-        /*const classlivro = new ClassLivros()
-        classlivro.titulo = this.livro.titulo
-        classlivro.descricao = this.livro.descricao
-        classlivro._autor = this.autores*/
         this.$store.dispatch('cadastrarLivro',this.nlivro)
         this.nlivro = new ClassLivros()
         this.dialog = false
