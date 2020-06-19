@@ -111,7 +111,17 @@ const store = new Vuex.Store({
             console.log(livro._autor)
             Livros.create(livro)
             .then(resposta => {
-                commit('ADD_LIVROS',resposta.data)
+                const item = resposta.data
+               
+                item.categoria.map(n=>{
+                  item.categoria.push("    "+n.nome) 
+                 
+                })
+                
+                 
+                  
+              
+                commit('ADD_LIVROS',item)
             })
             .catch( error => {
                 console.log(error)

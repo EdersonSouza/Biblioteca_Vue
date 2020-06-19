@@ -90,7 +90,6 @@
             >
               <template v-slot:selection="data">
                 <v-chip
-                  v-bind="data.attrs"
                   :input-value="data.selected"
                   close
                   @click="data.select"
@@ -114,15 +113,16 @@
           <v-col cols="6">
             <template>
               <v-row align="center">
-                  <v-select
+                  <v-autocomplete
                     v-model= nlivro._Editora
                     :items="getEditoras"
                     :menu-props="{ top: true, offsetY: true }"
                     label="Editora"
                     item-text = 'nome'
                     item-value="_id"
-                  > </v-select>
-                
+                    filled
+                    
+                  > </v-autocomplete>
               </v-row>
             </template>
           </v-col>
@@ -166,6 +166,7 @@ export default {
         return this.$store.getters.autores
       },
       getCategorias () {
+        console.log(typeof(this.$store.getters.categorias))
         return this.$store.getters.categorias
       },
       getEditoras () {
@@ -197,3 +198,10 @@ export default {
    
 }
 </script>
+<style  scoped>
+  .v.select__selection {
+    width: 100%;
+    justify-content: start;
+}
+  
+</style>
