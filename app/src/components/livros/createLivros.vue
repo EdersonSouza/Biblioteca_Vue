@@ -64,7 +64,8 @@
                   {{ data.item.nome}}
                 </v-chip>
               </template>
-              <template v-slot:item="data">
+              <template fixed
+                  right v-slot:item="data">
                 <template v-if="typeof data.item !== 'object'">
                   <v-list-item-content v-text="data.item"></v-list-item-content>
                 </template>
