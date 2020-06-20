@@ -25,7 +25,7 @@
         </v-toolbar>
       </template>
 
-      <template>
+      <template v-slot:item="data">
             <v-card  >
               <v-data-table
               :headers="keys"
@@ -35,19 +35,8 @@
               :items-per-page="itemsPerPage"
               class="elevation-1"
               @page-count="pageCount = $event"
+              @click.native="getLivro(data.item)"
               >
-                <template v-slot:item.actions="{ item }"
-                  
-                >
-                  <v-icon
-                    align="right"
-                    class="mr-2"
-                    @click="getLivro(item)"
-                  >
-                   mdi-eye
-                  </v-icon>
-                  
-                </template>
               </v-data-table>
                <v-text-field
                   :value="itemsPerPage"
@@ -81,7 +70,7 @@
            { text: 'Titulo', value: 'titulo' },
            { text: 'Descrição', value: 'descricao' },
            { text: 'Categorias', value: 'categoria' },
-           { text: 'Visualizar', value: 'actions', sortable: false },
+           
           
         ],
       }
@@ -101,7 +90,7 @@
     methods: {
       getLivro(props){
         console.log('entrei')
-        console.log(props)
+        console.log(props.titulo)
         
       }
       
