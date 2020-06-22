@@ -31,15 +31,45 @@
               :headers="keys"
               :items="getAlunos"
               :search="search"
-              ></v-data-table>
+              >
+              <template v-slot:item.actions="{ item }"
+
+                >
+                  <v-btn
+                    depressed 
+                    small
+                    color="#009688"
+                    align="right"
+                    class="mr-2"
+                    @click="getAluno(item)"
+                  >
+                   Novo Emprestimo
+                  </v-btn>
+
+                </template>
+              </v-data-table>
             </v-card>
           
       </template>
     </v-data-iterator>
+    <template>
+      <div class="text-center">
+        <v-dialog
+          v-model="dialog"
+          width="500"
+        >
+         <emprestimo @sdialog="sdialog"/>
+        </v-dialog>
+      </div>
+    </template>
   </v-container>
 </template>
 <script>
+import Emprestimo from '../emprestimos/novoEmprestimo'
   export default {
+    components:{
+      Emprestimo,
+    },
     data () {
       return {
         search: '',
@@ -47,9 +77,11 @@
         sortDesc: false,
         page: 1,
         sortBy: 'nome',
+        dialog:false,
         keys: [
            { text: 'Nome', value: 'nome' },
            { text: 'SGDE', value: 'codigoSgde' },
+          { text:  'Ações', value: 'actions', sortable: false },
            
           
         ],
@@ -60,14 +92,22 @@
       getAlunos () {
         return this.$store.getters.alunos
       },
+     
     },
 
     mounted () {
         this.$store.dispatch('listarAlunos')
-
+      
     },
     
     methods: {
+      getAluno(item){
+        this.dialog = true
+        console.log(item.nome)
+      },
+      sdialog(){
+        this.dialog = false
+      }
       
       
       

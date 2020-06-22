@@ -15,9 +15,13 @@ const store = new Vuex.Store({
         autores:[],
         alunos:[],
         editoras:[],
-        categorias:[]
+        categorias:[],
+        dialog: false
     },
     getters: {
+        dialog(state){
+            return state.dialog
+        },
         livros(state) {
           return state.livros
         },
@@ -37,6 +41,13 @@ const store = new Vuex.Store({
       },
     
     mutations:{
+
+        GET_DIALOG(state,dialog){
+            state.dialog = dialog
+        },
+        SET_DIALOG(state,dialog){
+            state.dialog = dialog
+        },
         //Livros
         GET_LIVROS(state,livros){
             state.livros=livros

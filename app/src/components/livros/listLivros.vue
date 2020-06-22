@@ -2,10 +2,10 @@
   <v-container fluid>
     <v-data-iterator
       :items="getLivros"
+      :page="page"
       :search="search"
       :sort-desc="sortDesc"
       hide-default-footer
-
     >
       <template v-slot:header>
         <v-toolbar
@@ -25,31 +25,15 @@
         </v-toolbar>
       </template>
 
-      <template v-slot:item="data">
-            <v-card  >
+      <template >
+            <v-card >
               <v-data-table
               :headers="keys"
               :items="getLivros"
               :search="search"
-              :page.sync="page"
-              :items-per-page="itemsPerPage"
-              class="elevation-1"
-              @page-count="pageCount = $event"
-              @click.native="getLivro(data.item)"
-              >
-              </v-data-table>
-               <v-text-field
-                  :value="itemsPerPage"
-                  label="Items por pagina"
-                  type="number"
-                  min="-1"
-                  max="15"
-                  @input="itemsPerPage = parseInt($event, 10)"
-                ></v-text-field>
-                <v-pagination v-model="page" :length="pageCount"></v-pagination>
+              ></v-data-table>
             </v-card>
-        
-        
+          
       </template>
     </v-data-iterator>
   </v-container>
