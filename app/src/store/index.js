@@ -16,11 +16,13 @@ const store = new Vuex.Store({
         alunos:[],
         editoras:[],
         categorias:[],
-        dialog: false
+        aluno:{
+            nome:"Ederson"
+        }
     },
     getters: {
-        dialog(state){
-            return state.dialog
+        aluno(state){
+            return state.aluno
         },
         livros(state) {
           return state.livros
@@ -42,12 +44,7 @@ const store = new Vuex.Store({
     
     mutations:{
 
-        GET_DIALOG(state,dialog){
-            state.dialog = dialog
-        },
-        SET_DIALOG(state,dialog){
-            state.dialog = dialog
-        },
+        
         //Livros
         GET_LIVROS(state,livros){
             state.livros=livros
@@ -64,6 +61,13 @@ const store = new Vuex.Store({
         },
         ADD_ALUNOS(state,aluno){
             state.alunos.push(aluno)
+        },
+
+        GET_ALUNO(state,aluno){
+            state.aluno = aluno
+        },
+        SET_ALUNO(state,aluno){
+            state.aluno = aluno
         },
 
 
@@ -151,6 +155,12 @@ const store = new Vuex.Store({
                 console.log(error)
             })
           },
+
+          setAluno({commit,state},aluno){
+              commit("SET_ALUNO",aluno)
+              console.log(state.aluno)
+          },
+          
           listarAlunos({commit}) {
            
             Alunos.listar()

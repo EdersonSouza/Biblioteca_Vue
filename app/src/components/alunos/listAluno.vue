@@ -102,6 +102,7 @@ import Emprestimo from '../emprestimos/novoEmprestimo'
     
     methods: {
       getAluno(item){
+        this.$store.dispatch('setAluno',item)
         this.dialog = true
         console.log(item.nome)
       },
