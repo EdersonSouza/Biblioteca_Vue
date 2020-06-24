@@ -43,7 +43,7 @@
                     class="mr-2"
                     @click="getAluno(item)"
                   >
-                   Novo Emprestimo
+                   Novo Empréstimo
                   </v-btn>
 
                 </template>

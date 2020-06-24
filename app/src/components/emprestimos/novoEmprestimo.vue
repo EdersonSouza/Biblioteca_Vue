@@ -4,9 +4,10 @@
       <v-card>
         <v-card-title
           class="headline grey lighten-2"
+          :item="getAluno"
           primary-title
         >
-          Emprestimo
+          Empréstimo
         </v-card-title>
 
         <v-card-text>
@@ -40,8 +41,9 @@
                       </template>
                       <template v-else>
                         <v-list-item-content>
-                          <v-list-item-title v-html="data.item.titulo"></v-list-item-title>
-                          <v-list-item-subtitle v-html="'descrição: '+data.item.descricao"></v-list-item-subtitle>
+                          <v-list-item-title v-html="'Título: '+data.item.titulo"></v-list-item-title>
+                          <v-list-item-subtitle v-html="'Sub Título: '+data.item.subtitulo"></v-list-item-subtitle>
+                          <v-list-item-title v-html="'descrição: '+data.item.descricao"></v-list-item-title>
                         </v-list-item-content>
                       </template>
                     </template>

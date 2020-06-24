@@ -32,6 +32,8 @@
                 <v-text-field
                   v-model = nlivro.titulo
                   placeholder="Titulo"
+                  clearable
+                  clear-icon="mdi-alpha-x-circle"
                 ></v-text-field>
               </v-row>
             </v-col>
@@ -43,13 +45,48 @@
                 @input="nlivro.total = parseInt($event, 10)"
               ></v-text-field>
             </v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-model = nlivro.descricao
-                placeholder="Descrição"
-              ></v-text-field>
+            <v-col
+              class="align-center justify-space-between"
+              cols="8"
+            >
+              <v-row
+                align="center"
+                class="mr-0"
+              >
+                <v-text-field
+                  v-model = nlivro.subtitulo
+                  placeholder="Sub Titulo"
+                  clearable
+                  clear-icon="mdi-alpha-x-circle"
+                ></v-text-field>
+              </v-row>
             </v-col>
             <v-col cols="6">
+              <v-textarea
+                v-model = nlivro.descricao
+                placeholder="Descrição"
+                clearable
+                clear-icon="mdi-alpha-x-circle"
+              ></v-textarea>
+            </v-col>
+            <v-col cols="6">
+               <v-col cols="12">
+                <v-text-field
+                  v-model = nlivro.edicao
+                  label="Ano edição"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  v-model = nlivro.volume
+                  label="Volume"
+                  type="Number"
+                  @input="nlivro.volume = parseInt($event, 10)"
+                ></v-text-field>
+              </v-col>
+            </v-col>
+            
+            <v-col cols="4">
             <v-autocomplete
               v-model="nlivro._autor"
               :items="getAutores"
@@ -81,10 +118,11 @@
                     <v-list-item-title v-html="data.item.nome"></v-list-item-title>
                   </v-list-item-content>
                 </template>
+                 
               </template>
             </v-autocomplete>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="4">
             <v-autocomplete
               v-model="nlivro.categoria"
               :items="getCategorias"
@@ -118,7 +156,7 @@
               </template>
             </v-autocomplete>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="4">
             <template>
               <v-row align="center">
                   <v-autocomplete
@@ -142,30 +180,27 @@
             text
             color="primary"
             @click="dialog = false"
-          >Cancel</v-btn>
+          >Cancelar</v-btn>
           <v-spacer></v-spacer>
           <v-btn
             text
             color='#009688'
             @click="store()"
-          >Save</v-btn>
+          >Salvar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
+     
     </div> 
 </template>
 <script>
 import ClassLivros from '../../models/livros/livros'
+
 export default {
     data: () => ({
       dialog: false,
       autores:[],
       nlivro: new ClassLivros(),
-      livro:{
-        titulo:'',
-        descricao:'',
-
-      }
       
     }),
     computed: {
@@ -184,6 +219,7 @@ export default {
 
     mounted () {
         this.nlivro.total = 0
+        this.nlivro.volume = 0
         this.$store.dispatch('listarAutores')
         this.$store.dispatch('listarCategorias')
         this.$store.dispatch('listarEditoras')
@@ -193,6 +229,7 @@ export default {
           this.dialog = true
           this.nlivro = new ClassLivros()
           this.nlivro.total = 0
+          this.nlivro.volume = 0
        },
        removeAutor (item) {
         const index = this.nlivro._autor.indexOf(item._id)
