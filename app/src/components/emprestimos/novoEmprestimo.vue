@@ -16,7 +16,8 @@
                 lazy-validation
             >
                 <v-text-field
-                v-model="name"
+                :disabled="true"
+                v-model="getAluno.nome"
                 label="Aluno"
                 required
                 ></v-text-field>
@@ -24,39 +25,38 @@
                
 
                 <v-autocomplete
-                v-model="items"
+                v-model="idLivro"
                 :items="getLivros"
                 item
                 :rules="[v => !!v || 'Selecione um livro']"
                 label="Livro"
-                item-text="titulo"
+                item-text="titulo"  
                 item-value="_id"
                 required
                 ></v-autocomplete>
+                  <v-menu
+                    ref="menu1"
+                    v-model="menu1"
+                    :close-on-content-click="false"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="290px"
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="dateFormatted"
+                        label="Data de Devolução"
+                        persistent-hint
+                        v-bind="attrs"
+                        @blur="date = parseDate(dateFormatted)"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
+                  </v-menu>
+                
 
-                <v-btn
-                :disabled="!valid"
-                color="success"
-                class="mr-4"
-                @click="validate"
-                >
-                Validate
-                </v-btn>
-
-                <v-btn
-                color="error"
-                class="mr-4"
-                @click="reset"
-                >
-                Reset Form
-                </v-btn>
-
-                <v-btn
-                color="warning"
-                @click="resetValidation"
-                >
-                Reset Validation
-                </v-btn>
             </v-form>
           
         </v-card-text>
@@ -75,7 +75,7 @@
           <v-btn
             color="primary"
             text
-            @click="sdialog"
+            @click="store"
           >
             Salvar
           </v-btn>
@@ -85,17 +85,23 @@
   </div>
 </template>
 <script>
+import Emprestimo from '../../models/emprestimos/emprestimo'
+import serviceEmprestimo from '../../services/emprestimo'
 export default {
-    data: ()=>({
-
+    data: vm =>({
+      date: new Date().toISOString().substr(0, 10),
+      dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
+      menu1: false,
       valid:true,
-      name: '',
-      aluno:"",
       select: null,
-      items: [
-      ],
+      idLivro:''
         
     }),
+     watch: {
+      date () {
+        this.dateFormatted = this.formatDate(this.date)
+      },
+    },
 
     computed: {
         getLivros () {
@@ -103,29 +109,46 @@ export default {
       },
         getAluno () {
             return this.$store.getters.aluno
-        }
+        },
+        computedDateFormatted () {
+        return this.formatDate(this.date)
+      },
 
     },
      mounted () {
         this.$store.dispatch('listarLivros')
-        this.aluno = this.getAluno
-        this.name = this.aluno.nome
-        console.log("estou aqui"+this.aluno.nome)
         
 
     },
     methods:{
         sdialog (){
             this.$emit('sdialog')
+             this.idLivro=''
         },
-        validate () {
-        this.$refs.form.validate()
+       
+      store (){
+        const emprestimo = new Emprestimo;
+        emprestimo.aluno = this.getAluno.id
+        emprestimo.livro = this.idLivro
+        emprestimo.devolucao = this.date
+        serviceEmprestimo.create(emprestimo).then(resposta => {
+          console.log(resposta.data)
+        }).catch(error => {
+           console.log(error)
+        })
+        console.log(emprestimo)
       },
-      reset () {
-        this.$refs.form.reset()
+       formatDate (date) {
+        if (!date) return null
+
+        const [year, month, day] = date.split('-')
+        return `${month}/${day}/${year}`
       },
-      resetValidation () {
-        this.$refs.form.resetValidation()
+      parseDate (date) {
+        if (!date) return null
+
+        const [month, day, year] = date.split('/')
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
       },
     }
 }
