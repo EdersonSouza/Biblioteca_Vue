@@ -122,21 +122,11 @@ const store = new Vuex.Store({
             console.log(error);
             })
           },
-          cadastrarLivro({commit},livro){
+          cadastrarLivro({dispatch},livro){
             console.log(livro._autor)
             Livros.create(livro)
-            .then(resposta => {
-                const item = resposta.data
-               
-                item.categoria.map(n=>{
-                  item.categoria.push("    "+n.nome) 
-                 
-                })
-                
-                 
-                  
-              
-                commit('ADD_LIVROS',item)
+            .then( ()=>{
+                dispatch('listarLivros')
             })
             .catch( error => {
                 console.log(error)
