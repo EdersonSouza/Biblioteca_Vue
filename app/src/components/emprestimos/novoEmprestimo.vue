@@ -33,7 +33,19 @@
                 item-text="titulo"
                 item-value="_id"
                 required
-                ></v-autocomplete>
+                >
+                    <template v-slot:item="data">
+                      <template v-if="typeof data.item !== 'object'">
+                        <v-list-item-content v-text="data.item"></v-list-item-content>
+                      </template>
+                      <template v-else>
+                        <v-list-item-content>
+                          <v-list-item-title v-html="data.item.titulo"></v-list-item-title>
+                          <v-list-item-subtitle v-html="'descrição: '+data.item.descricao"></v-list-item-subtitle>
+                        </v-list-item-content>
+                      </template>
+                    </template>
+                </v-autocomplete>
                   <v-menu
                     ref="menu1"
                     v-model="menu1"
@@ -94,7 +106,7 @@ export default {
       menu1: false,
       valid:true,
       select: null,
-      idLivro:''
+      idLivro:'',
         
     }),
      watch: {
@@ -124,6 +136,7 @@ export default {
         sdialog (){
             this.$emit('sdialog')
              this.idLivro=''
+              this.date= new Date().toISOString().substr(0, 10)
         },
        
       store (){
@@ -133,6 +146,7 @@ export default {
         emprestimo.devolucao = this.date
         serviceEmprestimo.create(emprestimo).then(resposta => {
           console.log(resposta.data)
+          this.sdialog()
         }).catch(error => {
            console.log(error)
         })
