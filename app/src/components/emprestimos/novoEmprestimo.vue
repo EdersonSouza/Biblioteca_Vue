@@ -30,7 +30,7 @@
                 item
                 :rules="[v => !!v || 'Selecione um livro']"
                 label="Livro"
-                item-text="titulo"  
+                item-text="titulo"
                 item-value="_id"
                 required
                 ></v-autocomplete>
