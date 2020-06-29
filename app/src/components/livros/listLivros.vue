@@ -54,6 +54,10 @@
            { text: 'Titulo', value: 'titulo' },
            { text: 'Descrição', value: 'descricao' },
            { text: 'Categorias', value: 'categoria' },
+           { text: 'Autores', value: '_autor'},
+           { text: 'Editora', value: '_Editora.nome'},
+           { text: 'Edição', value: 'edicao'},
+           { text: 'Volume', value: 'volume'}
            
           
         ],

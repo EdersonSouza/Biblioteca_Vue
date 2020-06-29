@@ -110,6 +110,10 @@ const store = new Vuex.Store({
                   items[i].categoria[e]="    "+n.nome 
                  
                 })
+                el._autor.map((n,e)=>{
+                    items[i]._autor[e]="    "+n.nome 
+                   
+                  })
                 
                  
                   
