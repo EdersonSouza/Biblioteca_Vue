@@ -143,7 +143,8 @@ export default {
        
       store (){
         const emprestimo = new Emprestimo;
-        emprestimo.aluno = this.getAluno.id
+        emprestimo.aluno = this.getAluno._id
+        console.log(emprestimo.aluno)
         emprestimo.livro = this.idLivro
         emprestimo.devolucao = this.date
         serviceEmprestimo.create(emprestimo).then(resposta => {

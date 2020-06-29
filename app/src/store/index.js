@@ -16,9 +16,7 @@ const store = new Vuex.Store({
         alunos:[],
         editoras:[],
         categorias:[],
-        aluno:{
-            nome:"Ederson"
-        }
+        aluno:{}
     },
     getters: {
         aluno(state){
