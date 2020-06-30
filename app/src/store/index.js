@@ -5,6 +5,8 @@ import Autores from '../services/autor'
 import Alunos from '../services/aluno'
 import Editoras from '../services/editora'
 import Categorias from '../services/categoria'
+import Emprestimos from '../services/emprestimo'
+import moment from 'moment'
 
 
 Vue.use(Vuex)
@@ -16,9 +18,13 @@ const store = new Vuex.Store({
         alunos:[],
         editoras:[],
         categorias:[],
-        aluno:{}
+        aluno:{},
+        emprestimos:[]
     },
     getters: {
+        emprestimos(state){
+            return state.emprestimos
+        },
         aluno(state){
             return state.aluno
         },
@@ -41,7 +47,14 @@ const store = new Vuex.Store({
       },
     
     mutations:{
+        //emprestimos
 
+        GET_EMPRESTIMOS(state, emprestimos){
+            state.emprestimos = emprestimos
+        },
+        ADD_EMPRESTIMOS(state,emprestimo){
+            state.emprestimos.push(emprestimo)
+        },
         
         //Livros
         GET_LIVROS(state,livros){
@@ -97,6 +110,20 @@ const store = new Vuex.Store({
 
     },
     actions:{
+        //emprestimos
+        listarEmprestimos({commit}){
+            Emprestimos.listar()
+            .then(resposta =>{
+                resposta.data.map((el)=>{
+                    el.devolucao = moment(String(el.devolucao)).format('MM/DD/YYYY')
+                    el.createdAt = moment(String(el.createdAt)).format('MM/DD/YYYY') 
+                    })
+                
+                commit('GET_EMPRESTIMOS',resposta.data)
+            }).catch(err =>{
+                console.log(err)
+            })
+        },
         //Livros
         listarLivros({commit}) {
            
