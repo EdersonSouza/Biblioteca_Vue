@@ -36,6 +36,7 @@
           
       </template>
     </v-data-iterator>
+    
   </v-container>
 </template>
 <script>
@@ -46,6 +47,7 @@
         filter: {},
         sortDesc: false,
         page: 1,
+        dialog:false,
         sortBy: 'nome',
         keys: [
            { text: 'Nome', value: 'nome' },
@@ -66,10 +68,6 @@
 
     },
     
-    methods: {
-      
-      
-      
-    },
+    
   }
 </script>

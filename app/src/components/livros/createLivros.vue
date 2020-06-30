@@ -36,143 +36,181 @@
                   clear-icon="mdi-alpha-x-circle"
                 ></v-text-field>
               </v-row>
-            </v-col>
-            <v-col cols="4">
-              <v-text-field
-                v-model = nlivro.total
-                label="Quantidade"
-                type="Number"
-                @input="nlivro.total = parseInt($event, 10)"
-              ></v-text-field>
-            </v-col>
-            <v-col
-              class="align-center justify-space-between"
-              cols="8"
-            >
-              <v-row
-                align="center"
-                class="mr-0"
-              >
+              </v-col>
+              <v-col cols="4">
                 <v-text-field
-                  v-model = nlivro.subtitulo
-                  placeholder="Sub Titulo"
+                  v-model = nlivro.total
+                  label="Quantidade"
+                  type="Number"
+                  @input="nlivro.total = parseInt($event, 10)"
+                ></v-text-field>
+              </v-col>
+              <v-col
+                class="align-center justify-space-between"
+                cols="8"
+              >
+                <v-row
+                  align="center"
+                  class="mr-0"
+                >
+                  <v-text-field
+                    v-model = nlivro.subtitulo
+                    placeholder="Sub Titulo"
+                    clearable
+                    clear-icon="mdi-alpha-x-circle"
+                  ></v-text-field>
+                </v-row>
+              </v-col>
+              <v-col cols="6">
+                <v-textarea
+                  v-model = nlivro.descricao
+                  placeholder="Descrição"
                   clearable
                   clear-icon="mdi-alpha-x-circle"
-                ></v-text-field>
-              </v-row>
-            </v-col>
-            <v-col cols="6">
-              <v-textarea
-                v-model = nlivro.descricao
-                placeholder="Descrição"
-                clearable
-                clear-icon="mdi-alpha-x-circle"
-              ></v-textarea>
-            </v-col>
-            <v-col cols="6">
-               <v-col cols="12">
-                <v-text-field
-                  v-model = nlivro.edicao
-                  label="Ano edição"
-                ></v-text-field>
+                ></v-textarea>
               </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-model = nlivro.volume
-                  label="Volume"
-                  type="Number"
-                  @input="nlivro.volume = parseInt($event, 10)"
-                ></v-text-field>
+              <v-col cols="6">
+                <v-col cols="12">
+                  <v-text-field
+                    v-model = nlivro.edicao
+                    label="Ano edição"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model = nlivro.volume
+                    label="Volume"
+                    type="Number"
+                    @input="nlivro.volume = parseInt($event, 10)"
+                  ></v-text-field>
+                </v-col>
               </v-col>
-            </v-col>
-            
-            <v-col cols="4">
-            <v-autocomplete
-              v-model="nlivro._autor"
-              :items="getAutores"
-              filled
-              chips
-              color="blue-grey lighten-2"
-              label="Selcionar Autor"
-              item-text="nome"
-              item-value="_id"
-              multiple
-            >
-              <template v-slot:selection="data">
-                <v-chip
-                  v-bind="data.attrs"
-                  :input-value="data.selected"
-                  close
-                  @click="data.select"
-                  @click:close="removeAutor(data.item)"
-                >
-                  {{ data.item.nome}}
-                </v-chip>
-              </template>
-              <template v-slot:item="data">
-                <template v-if="typeof data.item !== 'object'">
-                  <v-list-item-content v-text="data.item"></v-list-item-content>
-                </template>
-                <template v-else class="align-center justify-space-between">
-                  <v-list-item-content>
-                    <v-list-item-title v-html="data.item.nome"></v-list-item-title>
-                  </v-list-item-content>
-                </template>
-                 
-              </template>
-            </v-autocomplete>
-          </v-col>
-          <v-col cols="4">
-            <v-autocomplete
-              v-model="nlivro.categoria"
-              :items="getCategorias"
-              filled
-              chips
-              color="blue-grey lighten-2"
-              label="Selcionar Categoria"
-              item-text="nome"
-              item-value="_id"
-              multiple
-            >
-              <template v-slot:selection="data">
-                <v-chip
-                  :input-value="data.selected"
-                  close
-                  @click="data.select"
-                  @click:close="removeCategoria(data.item)"
-                >
-                  {{ data.item.nome}}
-                </v-chip>
-              </template>
-              <template v-slot:item="data">
-                <template v-if="typeof data.item !== 'object'">
-                  <v-list-item-content v-text="data.item"></v-list-item-content>
-                </template>
-                <template v-else>
-                  <v-list-item-content>
-                    <v-list-item-title v-html="data.item.nome"></v-list-item-title>
-                  </v-list-item-content>
-                </template>
-              </template>
-            </v-autocomplete>
-          </v-col>
-          <v-col cols="4">
-            <template>
-              <v-row align="center">
-                  <v-autocomplete
-                    v-model= nlivro._Editora
-                    :items="getEditoras"
-                    :menu-props="{ top: true, offsetY: true }"
-                    label="Editora"
-                    item-text = 'nome'
-                    item-value="_id"
+            <v-col cols="12">
+              <v-row >
+                  <v-col cols ="10">
+                    <v-autocomplete
+                    v-model="nlivro._autor"
+                    :items="getAutores"
                     filled
-                    
-                  > </v-autocomplete>
+                    chips
+                    color="blue-grey lighten-2"
+                    label="Selcionar Autor"
+                    item-text="nome"
+                    item-value="_id"
+                    multiple
+                  >
+                    <template v-slot:selection="data">
+                      <v-chip
+                        v-bind="data.attrs"
+                        :input-value="data.selected"
+                        close
+                        @click="data.select"
+                        @click:close="removeAutor(data.item)"
+                      >
+                        {{ data.item.nome}}
+                      </v-chip>
+                    </template>
+                    <template v-slot:item="data">
+                      <template v-if="typeof data.item !== 'object'">
+                        <v-list-item-content v-text="data.item"></v-list-item-content>
+                      </template>
+                      <template v-else class="align-center justify-space-between">
+                        <v-list-item-content>
+                          <v-list-item-title v-html="data.item.nome"></v-list-item-title>
+                        </v-list-item-content>
+                      </template>
+                      
+                    </template>
+                  </v-autocomplete>
+                  </v-col>
+                  <v-col cols="2">
+                    <v-btn bottom
+                      color="#009688"
+                      fab
+                      dark
+                      right @click="dialogautor = !dialogautor">
+                      <v-icon>mdi-plus</v-icon>
+                    </v-btn> 
+                  </v-col>
+                
               </v-row>
-            </template>
-          </v-col>
-          
+
+            </v-col>
+            <v-col cols="12">
+                <v-row >
+                  <v-col cols="10">
+                    <v-autocomplete
+                      v-model="nlivro.categoria"
+                      :items="getCategorias"
+                      filled
+                      chips
+                      color="blue-grey lighten-2"
+                      label="Selcionar Categoria"
+                      item-text="nome"
+                      item-value="_id"
+                      multiple
+                    >
+                      <template v-slot:selection="data">
+                        <v-chip
+                          :input-value="data.selected"
+                          close
+                          @click="data.select"
+                          @click:close="removeCategoria(data.item)"
+                        >
+                          {{ data.item.nome}}
+                        </v-chip>
+                      </template>
+                      <template v-slot:item="data">
+                        <template v-if="typeof data.item !== 'object'">
+                          <v-list-item-content v-text="data.item"></v-list-item-content>
+                        </template>
+                        <template v-else>
+                          <v-list-item-content>
+                            <v-list-item-title v-html="data.item.nome"></v-list-item-title>
+                          </v-list-item-content>
+                        </template>
+                      </template>
+                    </v-autocomplete>
+                </v-col>
+                <v-col cols = "2">
+                    <v-btn
+                    color="#009688"
+                    dark
+                    fab>
+                      <v-icon>mdi-plus</v-icon>
+                    </v-btn>
+
+                </v-col>
+                
+              </v-row>
+            </v-col>
+            <v-col cols="12">
+                 <v-row>
+                  <v-col cols ="10">
+                    <v-autocomplete
+                      v-model= nlivro._Editora
+                      :items="getEditoras"
+                      :menu-props="{ top: true, offsetY: true }"
+                      label="Editora"
+                      item-text = 'nome'
+                      item-value="_id"
+                      filled
+                      
+                    > </v-autocomplete>
+                  </v-col>
+                  <v-col cols ="2">
+                    <v-btn
+                      bottom
+                      color="#009688"
+                      dark
+                      fab
+                    >
+                      <v-icon>mdi-plus</v-icon>
+                    </v-btn>
+                  </v-col>
+                 </v-row>
+            </v-col>
+           
           </v-row>
         </v-container>
         <v-card-actions>
@@ -190,15 +228,25 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-     
+     <v-dialog
+          v-model="dialogautor"
+          width="500"
+        >
+         <createautor @sdialog="sdialog"/>
+      </v-dialog>
     </div> 
 </template>
 <script>
 import ClassLivros from '../../models/livros/livros'
+import createautor from '../autor/createAutores'
 
 export default {
+    components:{
+      createautor,
+    },
     data: () => ({
       dialog: false,
+      dialogautor:false,
       autores:[],
       nlivro: new ClassLivros(),
       
@@ -244,6 +292,9 @@ export default {
         this.nlivro = new ClassLivros()
         this.dialog = false
         
+      },
+       sdialog(){
+        this.dialogautor = false
       }
     },
    
