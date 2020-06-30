@@ -55,9 +55,7 @@
            { text: 'Aluno', value: 'aluno.nome' },
            { text: 'Livro', value: 'livro.titulo' },
            { text: 'Data de devolução', value: 'devolucao'},
-           { text: 'Editora', value: '_Editora.nome'},
-           { text: 'Edição', value: 'edicao'},
-           { text: 'Volume', value: 'volume'}
+
            
           
         ],
