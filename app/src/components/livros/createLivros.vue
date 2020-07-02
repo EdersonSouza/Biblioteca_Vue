@@ -232,30 +232,30 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-template>
+    <template>
       <v-dialog
           v-model="dialogautor"
           width="500"
         >
          <createautor @sdialog="sdialog"/>
       </v-dialog>
-    </v-template>
-     <v-template>
+    </template>
+     <template>
        <v-dialog
           v-model="dialogcategoria"
           width="500"
         >
          <createcategoria @sdialog="sdialog"/>
       </v-dialog>
-     </v-template>
-     <v-template>
+     </template>
+     <template>
        <v-dialog
         v-model ="dialogeditora"
         width="500"
        >
          <createeditora @sdialog="sdialog"/>
        </v-dialog>
-     </v-template>
+     </template>
       
     </div> 
 </template>

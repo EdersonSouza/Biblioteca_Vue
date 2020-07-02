@@ -77,9 +77,8 @@
     },
     
     methods: {
-      getLivro(props){
-        console.log('entrei')
-        console.log(props.titulo)
+      getLivro(){
+        
         
       }
       
