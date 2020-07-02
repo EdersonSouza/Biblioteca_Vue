@@ -1,48 +1,35 @@
 <template>
    <div>
-        <v-btn
-      bottom
-      color="#009688"
-      dark
-      fab
-      fixed
-      right
-      @click="dialog = !dialog"
-    >
-      <v-icon>mdi-plus</v-icon>
-    </v-btn>
-    <v-dialog
-      v-model="dialog"
-      width="400px"
-    >
       <v-card>
         <v-card-title class="teal " >
           Cadastrar Editora
         </v-card-title>
         <v-container>
-          <v-row class="mx-2">
-            <v-col
-              class="align-center justify-space-between"
-              cols="12"
-            >
-              <v-row
-                align="center"
-                class="mr-0"
+          <v-form ref="form">
+            <v-row class="mx-2">
+              <v-col
+                class="align-center justify-space-between"
+                cols="12"
               >
-                <v-text-field
-                  v-model = Editora.nome
-                  placeholder="Nome"
-                ></v-text-field>
-              </v-row>
-            </v-col>
-          
-          </v-row>
+                <v-row
+                  align="center"
+                  class="mr-0"
+                >
+                  <v-text-field
+                    v-model = Editora.nome
+                    placeholder="Nome"
+                  ></v-text-field>
+                </v-row>
+              </v-col>
+            
+            </v-row>
+          </v-form>
         </v-container>
         <v-card-actions>
           <v-btn
             text
             color="primary"
-            @click="dialog = false"
+            @click="sdialog"
           >Cancelar</v-btn>
           <v-spacer></v-spacer>
           <v-btn
@@ -52,14 +39,12 @@
           >Savar</v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
     </div> 
 </template>
 <script>
 
 export default {
     data: () => ({
-      dialog: false,
       Editora:{
         nome:''
 
@@ -69,8 +54,12 @@ export default {
     methods:{
       store (){
         this.$store.dispatch('cadastrarEditora',this.Editora)
-            this.dialog = false
-      }
+        .then(()=>{this.sdialog()}).catch(err=>{err})
+      },
+      sdialog (){
+            this.$emit('sdialog')
+            this.$refs.form.reset()
+        },
     }
 }
 </script>

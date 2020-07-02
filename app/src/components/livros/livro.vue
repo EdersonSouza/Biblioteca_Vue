@@ -1,7 +1,7 @@
 <template>
   <div>
-    <list></list>
-    <create></create>
+    <list/>
+    <create/>
   </div>
 </template>
 <script>

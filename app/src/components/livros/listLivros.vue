@@ -57,7 +57,8 @@
            { text: 'Autores', value: '_autor'},
            { text: 'Editora', value: '_Editora.nome'},
            { text: 'Edição', value: 'edicao'},
-           { text: 'Volume', value: 'volume'}
+           { text: 'Volume', value: 'volume'},
+           { text: 'Quantidade', value: 'total'}
            
           
         ],

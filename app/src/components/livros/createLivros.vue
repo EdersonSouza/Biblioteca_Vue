@@ -176,7 +176,9 @@
                     <v-btn
                     color="#009688"
                     dark
-                    fab>
+                    fab
+                    right 
+                    @click="dialogcategoria = !dialogcategoria">
                       <v-icon>mdi-plus</v-icon>
                     </v-btn>
 
@@ -204,6 +206,8 @@
                       color="#009688"
                       dark
                       fab
+                      right 
+                      @click="dialogeditora = !dialogeditora"
                     >
                       <v-icon>mdi-plus</v-icon>
                     </v-btn>
@@ -228,25 +232,50 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-     <v-dialog
+    <v-template>
+      <v-dialog
           v-model="dialogautor"
           width="500"
         >
          <createautor @sdialog="sdialog"/>
       </v-dialog>
+    </v-template>
+     <v-template>
+       <v-dialog
+          v-model="dialogcategoria"
+          width="500"
+        >
+         <createcategoria @sdialog="sdialog"/>
+      </v-dialog>
+     </v-template>
+     <v-template>
+       <v-dialog
+        v-model ="dialogeditora"
+        width="500"
+       >
+         <createeditora @sdialog="sdialog"/>
+       </v-dialog>
+     </v-template>
+      
     </div> 
 </template>
 <script>
 import ClassLivros from '../../models/livros/livros'
 import createautor from '../autor/createAutores'
+import createcategoria from '../categorias/createCategoria'
+import createeditora from '../editoras/createEditora'
 
 export default {
     components:{
       createautor,
+      createcategoria,
+      createeditora
     },
     data: () => ({
       dialog: false,
       dialogautor:false,
+      dialogcategoria:false,
+      dialogeditora:false,
       autores:[],
       nlivro: new ClassLivros(),
       
@@ -295,6 +324,8 @@ export default {
       },
        sdialog(){
         this.dialogautor = false
+        this.dialogcategoria = false
+        this.dialogeditora = false
       }
     },
    

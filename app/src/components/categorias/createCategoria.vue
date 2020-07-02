@@ -1,54 +1,42 @@
 <template>
    <div>
-        <v-btn
-      bottom
-      color="#009688"
-      dark
-      fab
-      fixed
-      right
-      @click="dialog = !dialog"
-    >
-      <v-icon>mdi-plus</v-icon>
-    </v-btn>
-    <v-dialog
-      v-model="dialog"
-      width="800px"
-    >
       <v-card>
         <v-card-title class="teal " >
           Cadastrar Categoria
         </v-card-title>
         <v-container>
-          <v-row class="mx-2">
-            <v-col
-              class="align-center justify-space-between"
-              cols="12"
-            >
-              <v-row
-                align="center"
-                class="mr-0"
+          <v-form ref="form">
+            <v-row class="mx-2">
+              <v-col
+                class="align-center justify-space-between"
+                cols="12"
               >
+                <v-row
+                  align="center"
+                  class="mr-0"
+                >
+                  <v-text-field
+                    v-model = categoria.nome
+                    placeholder="Titulo"
+                  ></v-text-field>
+                </v-row>
+              </v-col>
+              <v-col cols="12">
                 <v-text-field
-                  v-model = categoria.nome
-                  placeholder="Titulo"
+                  v-model = categoria.descricao
+                  placeholder="Descrição"
                 ></v-text-field>
-              </v-row>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-model = categoria.descricao
-                placeholder="Descrição"
-              ></v-text-field>
-            </v-col>
-          
-          </v-row>
+              </v-col>
+            
+            </v-row>
+          </v-form>
         </v-container>
+        
         <v-card-actions>
           <v-btn
             text
             color="primary"
-            @click="dialog = false"
+           @click="sdialog"
           >Cancel</v-btn>
           <v-spacer></v-spacer>
           <v-btn
@@ -58,7 +46,6 @@
           >Save</v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
     </div> 
 </template>
 <script>
@@ -76,9 +63,12 @@ export default {
     methods:{
       store (){
         this.$store.dispatch('cadastrarCategoria',this.categoria)
-       
-            this.dialog = false
-      }
+        .then(()=>{this.sdialog()}).catch(err=>{err})
+      },
+      sdialog (){
+            this.$emit('sdialog')
+            this.$refs.form.reset()
+        },
     }
 }
 </script>
