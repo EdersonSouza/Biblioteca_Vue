@@ -28,7 +28,7 @@
                 <v-form>
                   <v-text-field
                     label="Login"
-                    name="login"
+                    v-model = user.nomeUser
                     prepend-icon="mdi-account"
                     type="text"
                     color="#009688"
@@ -37,7 +37,7 @@
                   <v-text-field
                     id="password"
                     label="Password"
-                    name="password"
+                    v-model = user.password
                     prepend-icon="mdi-lock"
                     type="password"
                     color="#009688"
@@ -59,12 +59,23 @@
 <script>
   export default {
       data:()=> ({
+        user:{
+          nomeUser:'',
+          password:''
+        },
+        erro:''
 
       }),
 
       methods: {
           login (){
-              this.$router.push('/about/livros');
+              this.$store.dispatch('login',this.user)
+              .then(()=>{
+                this.$router.push({name:'livros'});
+              }).catch(error=>{
+                  this.erro = error.response.data.error
+              })
+              
           }
       }
     

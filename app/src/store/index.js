@@ -6,6 +6,7 @@ import Alunos from '../services/aluno'
 import Editoras from '../services/editora'
 import Categorias from '../services/categoria'
 import Emprestimos from '../services/emprestimo'
+import Auth from '../services/auth'
 import moment from 'moment'
 
 
@@ -19,7 +20,8 @@ const store = new Vuex.Store({
         editoras:[],
         categorias:[],
         aluno:{},
-        emprestimos:[]
+        emprestimos:[],
+        token: localStorage.getItem('access_token') || null,
     },
     getters: {
         emprestimos(state){
@@ -47,6 +49,9 @@ const store = new Vuex.Store({
       },
     
     mutations:{
+        retrieveToken(state, token) {
+            state.token = token
+          },
         //emprestimos
 
         GET_EMPRESTIMOS(state, emprestimos){
@@ -110,6 +115,26 @@ const store = new Vuex.Store({
 
     },
     actions:{
+        login({commit}, user) {
+
+            return new Promise((resolve, reject) => {
+              Auth.login(user)
+                .then(response => {
+                  const token = response.data.token
+      
+                  localStorage.setItem('access_token', token)
+                  commit('retrieveToken', token)
+                  resolve(response)
+                  console.log(response.data.token);
+                  // context.commit('addTodo', response.data)
+                })
+                .catch(error => {
+                  console.log(error)
+                  reject(error)
+                })
+              })
+          },
+
         //emprestimos
         listarEmprestimos({commit}){
             Emprestimos.listar()
