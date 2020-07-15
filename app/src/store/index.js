@@ -8,6 +8,7 @@ import Categorias from '../services/categoria'
 import Emprestimos from '../services/emprestimo'
 import Auth from '../services/auth'
 import moment from 'moment'
+import {http}  from '../services/config'
 
 
 Vue.use(Vuex)
@@ -115,17 +116,20 @@ const store = new Vuex.Store({
 
     },
     actions:{
-        login({commit}, user) {
+        login({commit,state}, user) {
 
             return new Promise((resolve, reject) => {
               Auth.login(user)
                 .then(response => {
                   const token = response.data.token
+
+                  localStorage.setItem('access_token'," ")
       
                   localStorage.setItem('access_token', token)
                   commit('retrieveToken', token)
                   resolve(response)
                   console.log(response.data.token);
+                  http.defaults.headers['x-access-token']=state.token
                   // context.commit('addTodo', response.data)
                 })
                 .catch(error => {
